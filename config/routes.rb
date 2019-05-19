@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root "top#index"
+  resources :txt, only: [:index]
+  resources :g, only: [:index]
+  resources :japanese_secret_questions, only: [:index]
 end

@@ -1,0 +1,2 @@
+module JapaneseSecretQuestionsHelper
+end

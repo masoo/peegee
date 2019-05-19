@@ -68,6 +68,8 @@ GEM
       nokogiri (~> 1.8)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    ddd_domain (1.1.1)
+      rails (~> 5.0)
     erubi (1.8.0)
     execjs (2.7.0)
     ffi (1.11.0)
@@ -191,6 +193,7 @@ GEM
     websocket-extensions (0.1.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    zxcvbn-ruby (1.0.0)
 
 PLATFORMS
   ruby
@@ -200,6 +203,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   chromedriver-helper
+  ddd_domain
   hamlit-rails
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
@@ -214,6 +218,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  zxcvbn-ruby
 
 RUBY VERSION
    ruby 2.6.3p62
