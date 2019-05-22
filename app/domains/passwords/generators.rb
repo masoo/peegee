@@ -3,13 +3,21 @@ require 'zxcvbn'
 
 module Passwords
   class Generators
+    DEFAULT_UPPERCASE_ALPHABETS = [*'A'..'Z']
+    DEFAULT_LOWERCASE_ALPHABETS = [*'a'..'z']
+    DEFAULT_NUMBERS = [*'0'..'9']
+    DEFAULT_SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.split('')
+    DEFAULT_SEEDS = DEFAULT_UPPERCASE_ALPHABETS + DEFAULT_LOWERCASE_ALPHABETS + DEFAULT_NUMBERS + DEFAULT_SYMBOLS
+    EXCLUDE_LOOK_ALIKE_CHARACTERS = '0oO1lI|gq9'.split('')
+
     class << self
-      def default
-        lowercase_alphabets = [*'a'..'z']
-        upcase_alphabets = [*'A'..'Z']
-        symbols = '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.split('')
-        seeds = lowercase_alphabets + upcase_alphabets + symbols
-        password = 32.times.map { seeds.sample }.join
+      # Generate a standard password
+      # @param [integer] size - password length
+      # @param [Charactor Array] seeds - password seed's charactors
+      # @return [String] password
+      def create(size: 32, seeds: DEFAULT_SEEDS, excluded: EXCLUDE_LOOK_ALIKE_CHARACTERS)
+        values = seeds - excluded
+        size.times.map { values.sample }.join
       end
 
       def entropy(password)

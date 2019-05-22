@@ -1,6 +1,6 @@
 class GController < ApplicationController
   def index
-    @password = Passwords::Generators.default
+    @password = Passwords::Generators.create
     @entropy = Passwords::Generators.entropy(@password)
     @score = Passwords::Generators.score(@password)
 
