@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :g, only: [:index]
   resources :japanese_secret_questions, only: [:index]
   get "kuronekoyamato.co.jp", to: "kuronekoyamato_co_jp#index", as: "kuronekoyamato_co_jp"
+  get "nenkin.go.jp", to: "nenkin_go_jp#index", as: "nenkin_go_jp"
 end

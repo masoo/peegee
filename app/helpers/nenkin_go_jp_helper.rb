@@ -1,0 +1,2 @@
+module NenkinGoJpHelper
+end
