@@ -1,16 +1,21 @@
+<header>
 <h1>Peegee</h1>
+</header>
 
-<p>"Peegee" is Password Generators.</p>
+<h2>"Peegee" is Password Generators.</h2>
+<h3>Standard</h3>
 <p>If you want to generate a standard password, <br>
-access <%= link_to g_index_url(format: :txt), g_index_path(format: :txt) %> 
+access <%= link_to g_index_url(format: :txt), g_index_path(format: :txt) %>
 or <%= link_to g_index_url(format: :json), g_index_path(format: :json) %></p>
 </p>
 
+<h3>日本語の”ひみつの質問”</h3>
 <p>if you wont to generate Japanese Secret Questions, <br>
-access <%= link_to japanese_secret_questions_url(format: :txt), japanese_secret_questions_path(format: :txt) %> 
+access <%= link_to japanese_secret_questions_url(format: :txt), japanese_secret_questions_path(format: :txt) %>
 or <%= link_to japanese_secret_questions_url(format: :json), japanese_secret_questions_path(format: :json) %></p>
 </p>
 
+<h2>Other Site Password Generators.</h2>
 <h3>クロネコメンバーズ's Password</h3>
 <p><%= link_to kuronekoyamato_co_jp_url, kuronekoyamato_co_jp_path %></p>
 

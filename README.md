@@ -8,6 +8,8 @@ This web app is a password generator.
 $ bundle exec rails s
 ```
 
-## Donate
+## Buy coffee to the author.
+
+[Github Sponsor | https://github.com/sponsors/masoo](https://github.com/sponsors/masoo)
 
 [PayPal.Me | https://paypal.me/masoojp](https://paypal.me/masoojp)
