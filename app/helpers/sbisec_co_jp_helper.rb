@@ -1,0 +1,2 @@
+module SbisecCoJpHelper
+end
