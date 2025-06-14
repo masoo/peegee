@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.3'
+ruby '3.4.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
@@ -52,3 +52,13 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
+
+gem 'logger'
+# Ruby 3.4 compatibility
+gem 'thor', '~> 1.3'
+gem 'mutex_m'
+gem 'base64'
+gem 'bigdecimal'
+gem 'net-smtp'
+gem 'net-pop'
+gem 'net-imap'
