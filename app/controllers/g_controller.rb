@@ -6,7 +6,7 @@ class GController < ApplicationController
 
     respond_to do |format|
       format.text do
-        render layout: false, formats: [:text]
+        render layout: false, formats: [ :text ]
       end
       format.json do
         render layout: false, json: {

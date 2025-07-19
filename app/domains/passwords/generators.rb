@@ -1,14 +1,14 @@
-require 'securerandom'
-require 'zxcvbn'
+require "securerandom"
+require "zxcvbn"
 
 module Passwords
   class Generators
-    DEFAULT_UPPERCASE_ALPHABETS = [*'A'..'Z']
-    DEFAULT_LOWERCASE_ALPHABETS = [*'a'..'z']
-    DEFAULT_NUMBERS = [*'0'..'9']
-    DEFAULT_SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.split('')
+    DEFAULT_UPPERCASE_ALPHABETS = [ *"A".."Z" ]
+    DEFAULT_LOWERCASE_ALPHABETS = [ *"a".."z" ]
+    DEFAULT_NUMBERS = [ *"0".."9" ]
+    DEFAULT_SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.split("")
     DEFAULT_SEEDS = DEFAULT_UPPERCASE_ALPHABETS + DEFAULT_LOWERCASE_ALPHABETS + DEFAULT_NUMBERS + DEFAULT_SYMBOLS
-    EXCLUDE_LOOK_ALIKE_CHARACTERS = '0oO1lI|gq9'.split('')
+    EXCLUDE_LOOK_ALIKE_CHARACTERS = "0oO1lI|gq9".split("")
 
     class << self
       # Generate a standard password
@@ -29,7 +29,7 @@ module Passwords
       end
 
       def hiragana
-        hiragana = [*'あ'..'ん']
+        hiragana = [ *"あ".."ん" ]
         seeds = hiragana
         password = 32.times.map { seeds.sample }.join
       end
