@@ -7,7 +7,7 @@ class KuronekoyamatoCoJpController < ApplicationController
 
     respond_to do |format|
       format.any do
-        render layout: false, formats: [:text], content_type: "text/plain"
+        render layout: false, formats: [ :text ], content_type: "text/plain"
       end
       format.json do
         render layout: false, json: {
