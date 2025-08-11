@@ -32,3 +32,8 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Peegee Setting
+CLAUDE.md
+.claude/
+.claude.*
