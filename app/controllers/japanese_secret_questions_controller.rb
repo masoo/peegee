@@ -1,6 +1,6 @@
 class JapaneseSecretQuestionsController < ApplicationController
   def index
-    @password = Passwords::Generators.hiragana
+    @password = Passwords::Generators.create_hiragana_password
     @entropy = Passwords::Generators.entropy(@password)
     @score = Passwords::Generators.score(@password)
 

@@ -3,6 +3,7 @@ require "zxcvbn"
 
 module Passwords
   class Generators
+    DEFAULT_PASSWORD_LENGTH = 32
     DEFAULT_UPPERCASE_ALPHABETS = [ *"A".."Z" ]
     DEFAULT_LOWERCASE_ALPHABETS = [ *"a".."z" ]
     DEFAULT_NUMBERS = [ *"0".."9" ]
@@ -15,7 +16,7 @@ module Passwords
       # @param [integer] size - password length
       # @param [Charactor Array] seeds - password seed's charactors
       # @return [String] password
-      def create(size: 32, seeds: DEFAULT_SEEDS, excluded: EXCLUDE_LOOK_ALIKE_CHARACTERS)
+      def create(size: DEFAULT_PASSWORD_LENGTH, seeds: DEFAULT_SEEDS, excluded: EXCLUDE_LOOK_ALIKE_CHARACTERS)
         values = seeds - excluded
         size.times.map { values.sample }.join
       end
@@ -28,10 +29,13 @@ module Passwords
         Zxcvbn.test(password).score
       end
 
-      def hiragana
+      # Generate a hiragana password
+      # @param [integer] size - password length
+      # @return [String] password
+      def create_hiragana_password(size: DEFAULT_PASSWORD_LENGTH)
         hiragana = [ *"あ".."ん" ]
         seeds = hiragana
-        password = 32.times.map { seeds.sample }.join
+        password = size.times.map { seeds.sample }.join
       end
     end
   end
