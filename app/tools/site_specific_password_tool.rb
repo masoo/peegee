@@ -27,17 +27,18 @@ class SiteSpecificPasswordTool < ApplicationTool
 
   def generate_sbi_securities_password
     seeds = Passwords::Generators::DEFAULT_UPPERCASE_ALPHABETS +
-            Passwords::Generators::DEFAULT_LOWERCASE_ALPHABETS +
-            Passwords::Generators::DEFAULT_NUMBERS +
-            Passwords::Generators::DEFAULT_SYMBOLS
+      Passwords::Generators::DEFAULT_LOWERCASE_ALPHABETS +
+      Passwords::Generators::DEFAULT_NUMBERS +
+      Passwords::Generators::DEFAULT_SYMBOLS
 
     password = nil
     symbols_count = 0
 
-    begin
+    loop do
       password = Passwords::Generators.create(size: 20, seeds: seeds, excluded: [])
       symbols_count = password.chars.count { |c| Passwords::Generators::DEFAULT_SYMBOLS.include?(c) }
-    end while symbols_count < 2
+      break unless symbols_count < 2
+    end
 
     {
       site: "SBI Securities",
@@ -56,8 +57,8 @@ class SiteSpecificPasswordTool < ApplicationTool
 
   def generate_nenkinnet_password
     seeds = Passwords::Generators::DEFAULT_UPPERCASE_ALPHABETS +
-            Passwords::Generators::DEFAULT_LOWERCASE_ALPHABETS +
-            Passwords::Generators::DEFAULT_NUMBERS
+      Passwords::Generators::DEFAULT_LOWERCASE_ALPHABETS +
+      Passwords::Generators::DEFAULT_NUMBERS
 
     password = Passwords::Generators.create(size: 20, seeds: seeds, excluded: [])
 
@@ -76,7 +77,7 @@ class SiteSpecificPasswordTool < ApplicationTool
 
   def generate_kuroneko_members_password
     seeds = Passwords::Generators::DEFAULT_UPPERCASE_ALPHABETS +
-            Passwords::Generators::DEFAULT_LOWERCASE_ALPHABETS
+      Passwords::Generators::DEFAULT_LOWERCASE_ALPHABETS
 
     password = Passwords::Generators.create(size: 12, seeds: seeds, excluded: [])
 
