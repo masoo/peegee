@@ -4,10 +4,11 @@ class SbisecCoJpController < ApplicationController
       Passwords::Generators::DEFAULT_LOWERCASE_ALPHABETS +
       Passwords::Generators::DEFAULT_NUMBERS +
       Passwords::Generators::DEFAULT_SYMBOLS
-    begin
+    loop do
       @password = Passwords::Generators.create(size: 20, seeds: seeds)
-      symbols_count = @password.split("").select { Passwords::Generators::DEFAULT_SYMBOLS.join.include?(_1) }.count
-    end while (symbols_count < 2)
+      symbols_count = @password.chars.select { Passwords::Generators::DEFAULT_SYMBOLS.join.include?(it) }.count
+      break unless symbols_count < 2
+    end
     @entropy = Passwords::Generators.entropy(@password)
     @score = Passwords::Generators.score(@password)
 
