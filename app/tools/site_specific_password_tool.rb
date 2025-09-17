@@ -15,10 +15,12 @@ class SiteSpecificPasswordTool < ApplicationTool
       generate_nenkinnet_password
     when "kuroneko_members", "kuroneko"
       generate_kuroneko_members_password
+    when "smart_ex", "smartex"
+      generate_smart_ex_password
     else
       {
         error: "Unknown site: #{site}",
-        available_sites: [ "sbi_securities", "nenkinnet", "kuroneko_members" ]
+        available_sites: [ "sbi_securities", "nenkinnet", "kuroneko_members", "smart_ex" ]
       }
     end
   end
@@ -90,6 +92,22 @@ class SiteSpecificPasswordTool < ApplicationTool
       requirements: {
         length: "12 characters",
         character_types: "Uppercase and lowercase letters only (no numbers or symbols)"
+      }
+    }
+  end
+
+  def generate_smart_ex_password
+    password = Www::SmartExJp.create
+
+    {
+      site: "Smart EX",
+      password: password,
+      length: password.length,
+      entropy: Passwords::Generators.entropy(password),
+      score: Passwords::Generators.score(password),
+      requirements: {
+        length: "8 characters",
+        character_types: "Uppercase, lowercase, numbers, and symbols"
       }
     }
   end
