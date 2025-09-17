@@ -1,0 +1,2 @@
+module SmartExJpHelper
+end

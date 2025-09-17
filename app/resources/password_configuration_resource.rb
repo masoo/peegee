@@ -61,6 +61,12 @@ class PasswordConfigurationResource < ApplicationResource
           required_types: [ "uppercase", "lowercase" ],
           forbidden_types: [ "numbers", "symbols" ],
           site_url: "https://www.kuronekoyamato.co.jp"
+        },
+        smart_ex: {
+          name: "スマートEX",
+          length: 8,
+          required_types: [ "uppercase", "lowercase", "numbers", "symbols" ],
+          site_url: "https://www.smart-ex.jp"
         }
       },
       recommendations: {

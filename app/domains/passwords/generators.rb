@@ -7,9 +7,9 @@ module Passwords
     DEFAULT_UPPERCASE_ALPHABETS = [ *"A".."Z" ]
     DEFAULT_LOWERCASE_ALPHABETS = [ *"a".."z" ]
     DEFAULT_NUMBERS = [ *"0".."9" ]
-    DEFAULT_SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.split("")
+    DEFAULT_SYMBOLS = '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'.chars
     DEFAULT_SEEDS = DEFAULT_UPPERCASE_ALPHABETS + DEFAULT_LOWERCASE_ALPHABETS + DEFAULT_NUMBERS + DEFAULT_SYMBOLS
-    EXCLUDE_LOOK_ALIKE_CHARACTERS = "0oO1lI|gq9".split("")
+    EXCLUDE_LOOK_ALIKE_CHARACTERS = "0oO1lI|gq9".chars
 
     class << self
       # Generate a standard password
@@ -35,7 +35,7 @@ module Passwords
       def create_hiragana_password(size: DEFAULT_PASSWORD_LENGTH)
         hiragana = [ *"あ".."ん" ]
         seeds = hiragana
-        password = size.times.map { seeds.sample }.join
+        size.times.map { seeds.sample }.join
       end
     end
   end
