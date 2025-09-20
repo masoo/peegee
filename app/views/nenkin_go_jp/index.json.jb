@@ -1,0 +1,6 @@
+json = {
+  password: @password,
+  entropy: @entropy,
+  score: @score
+}
+json
