@@ -162,9 +162,6 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jbuilder (2.14.1)
-      actionview (>= 7.0.0)
-      activesupport (>= 7.0.0)
     json (2.14.1)
     kamal (2.7.0)
       activesupport (>= 7.0)
@@ -397,7 +394,6 @@ DEPENDENCIES
   dry-schema
   fast-mcp
   importmap-rails
-  jbuilder
   kamal
   pg (~> 1.6)
   propshaft
