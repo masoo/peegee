@@ -1,19 +1,13 @@
+# This controller manages password generation and evaluation for kuronekoyamato.co.jp.
 class KuronekoyamatoCoJpController < ApplicationController
+  # GET /kuronekoyamato.co.jp
   def index
-    seeds = Passwords::Generators::DEFAULT_UPPERCASE_ALPHABETS + Passwords::Generators::DEFAULT_LOWERCASE_ALPHABETS
-    @password = Passwords::Generators.create(size: 12, seeds: seeds)
-    @entropy = Passwords::Generators.entropy(@password)
-    @score = Passwords::Generators.score(@password)
+    generator = Www::KuronekoyamatoCoJp.new
+    @password = generator.create
+    evaluator = Passwords::StrengthEvaluator.new(@password)
+    @entropy = evaluator.entropy
+    @score = evaluator.score
 
-    respond_to do |format|
-      format.any do
-        render layout: false, formats: [ :text ], content_type: "text/plain"
-      end
-      format.json do
-        render layout: false, json: {
-          password: @password, entropy: @entropy, score: @score
-        }
-      end
-    end
+    render_password_response
   end
 end

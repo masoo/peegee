@@ -8,13 +8,15 @@ class HiraganaPasswordTool < ApplicationTool
   end
 
   def call(length: 32)
-    password = Passwords::Generators.create_hiragana_password(size: length)
+    generator = Passwords::HiraganaGenerator.new
+    password = generator.create(size: length)
+    evaluator = Passwords::StrengthEvaluator.new(password)
 
     {
       password: password,
       length: password.length,
-      entropy: Passwords::Generators.entropy(password),
-      score: Passwords::Generators.score(password),
+      entropy: evaluator.entropy,
+      score: evaluator.score,
       type: "hiragana",
       description: "Password generated using only hiragana characters (あ-ん)"
     }

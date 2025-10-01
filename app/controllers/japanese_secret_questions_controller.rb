@@ -1,18 +1,13 @@
+# This controller manages Japanese secret questions, generating passwords and evaluating their strength.
 class JapaneseSecretQuestionsController < ApplicationController
+  # GET /japanese_secret_questions
   def index
-    @password = Passwords::Generators.create_hiragana_password
-    @entropy = Passwords::Generators.entropy(@password)
-    @score = Passwords::Generators.score(@password)
+    generator = Passwords::HiraganaGenerator.new
+    @password = generator.create
+    evaluator = Passwords::StrengthEvaluator.new(@password)
+    @entropy = evaluator.entropy
+    @score = evaluator.score
 
-    respond_to do |format|
-      format.text do
-        render layout: false, formats: [ :text ]
-      end
-      format.json do
-        render layout: false, json: {
-          password: @password, entropy: @entropy, score: @score
-        }
-      end
-    end
+    render_password_response
   end
 end

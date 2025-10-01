@@ -21,28 +21,26 @@ class PasswordGeneratorTool < ApplicationTool
     exclude_lookalike: true
   )
     seeds = []
-    seeds += Passwords::Generators::DEFAULT_UPPERCASE_ALPHABETS if include_uppercase
-    seeds += Passwords::Generators::DEFAULT_LOWERCASE_ALPHABETS if include_lowercase
-    seeds += Passwords::Generators::DEFAULT_NUMBERS if include_numbers
-    seeds += Passwords::Generators::DEFAULT_SYMBOLS if include_symbols
+    seeds += Passwords::StandardGenerator::DEFAULT_UPPERCASE_ALPHABETS if include_uppercase
+    seeds += Passwords::StandardGenerator::DEFAULT_LOWERCASE_ALPHABETS if include_lowercase
+    seeds += Passwords::StandardGenerator::DEFAULT_NUMBERS if include_numbers
+    seeds += Passwords::StandardGenerator::DEFAULT_SYMBOLS if include_symbols
 
     if seeds.empty?
       return { error: "At least one character type must be included" }
     end
 
-    excluded = exclude_lookalike ? Passwords::Generators::EXCLUDE_LOOK_ALIKE_CHARACTERS : []
+    excluded = exclude_lookalike ? Passwords::StandardGenerator::EXCLUDE_LOOK_ALIKE_CHARACTERS : []
 
-    password = Passwords::Generators.create(
-      size: length,
-      seeds: seeds,
-      excluded: excluded
-    )
+    generator = Passwords::StandardGenerator.new
+    password = generator.create(size: length, seeds: seeds, excluded: excluded)
+    evaluator = Passwords::StrengthEvaluator.new(password)
 
     {
       password: password,
       length: password.length,
-      entropy: Passwords::Generators.entropy(password),
-      score: Passwords::Generators.score(password),
+      entropy: evaluator.entropy,
+      score: evaluator.score,
       options: {
         include_uppercase: include_uppercase,
         include_lowercase: include_lowercase,
