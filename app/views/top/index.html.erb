@@ -1,36 +1,100 @@
-<header>
-<h1>Peegee</h1>
+<header class="container">
+  <hgroup>
+    <h1>Peegee</h1>
+    <p>"Peegee" is Password Generators.</p>
+  </hgroup>
 </header>
 
-<h2>"Peegee" is Password Generators.</h2>
-<h3>Standard</h3>
-<p>If you want to generate a standard password, <br>
-access <%= link_to g_index_url(format: :txt), g_index_path(format: :txt) %>
-or <%= link_to g_index_url(format: :json), g_index_path(format: :json) %></p>
-</p>
+<main class="container">
+  <div class="grid">
+    <div>
+      <article>
+        <h3>Standard</h3>
+        <p>If you want to generate a standard password, <br>
+        access <%= link_to g_index_url(format: :txt), g_index_path(format: :txt) %>
+        or <%= link_to g_index_url(format: :json), g_index_path(format: :json) %></p>
+        </p>
+      </article>
+    </div>
+    <div>
+      <article>
+        <h3>日本語の”ひみつの質問”</h3>
+        <p>if you wont to generate Japanese Secret Questions, <br>
+        access <%= link_to japanese_secret_questions_url(format: :txt), japanese_secret_questions_path(format: :txt) %>
+        or <%= link_to japanese_secret_questions_url(format: :json), japanese_secret_questions_path(format: :json) %></p>
+        </p>
+      </article>
+    </div>
+  </div>
 
-<h3>日本語の”ひみつの質問”</h3>
-<p>if you wont to generate Japanese Secret Questions, <br>
-access <%= link_to japanese_secret_questions_url(format: :txt), japanese_secret_questions_path(format: :txt) %>
-or <%= link_to japanese_secret_questions_url(format: :json), japanese_secret_questions_path(format: :json) %></p>
-</p>
+  <div class="grid">
+    <div>
+      <h2>Other Site Password Generators.</h2>
+    </div>
+  </div>
 
-<h2>Other Site Password Generators.</h2>
-<h3>クロネコメンバーズ's Password</h3>
-<p><%= link_to kuronekoyamato_co_jp_url, kuronekoyamato_co_jp_path %></p>
+  <div class="grid">
+    <div>
+      <article>
+        <header>クロネコメンバーズ's Password</header>
+        <p><%= link_to kuronekoyamato_co_jp_url, kuronekoyamato_co_jp_path %></p>
+      </article>
+    </div>
+    <div>
+      <article>
+        <header>ねんきんネット's Password</header>
+        <p><%= link_to nenkin_go_jp_url, nenkin_go_jp_path %></p>
+      </article>
+    </div>
+    <div>
+      <article>
+        <header>SBI証券's Password</header>
+        <p><%= link_to sbisec_co_jp_url, sbisec_co_jp_path %></p>
+      </article>
+    </div>
+  </div>
+  <div class="grid">
+    <div>
+      <article>
+        <header>スマートEX's Password</header>
+        <p><%= link_to smart_ex_jp_url, smart_ex_jp_path %></p>
+      </article>
+    </div>
+    <div></div>
+    <div></div>
+  </div>
 
-<h3>ねんきんネット's Password</h3>
-<p><%= link_to nenkin_go_jp_url, nenkin_go_jp_path %></p>
+  <hr>
+  <div class="grid">
+    <div>
+      <article>
+        <header>
+          <h2>Github Repository</h2>
+        </header>
+        <main>
+          <p><a href="https://github.com/masoo/peegee">https://github.com/masoo/peegee</a></p>
+        </main>
+      </article>
+    </div>
+  </div>
 
-<h3>SBI証券's Password</h3>
-<p><%= link_to sbisec_co_jp_url, sbisec_co_jp_path %></p>
-
-<h3>スマートEX's Password</h3>
-<p><%= link_to smart_ex_jp_url, smart_ex_jp_path %></p>
-
-<h2>Github Repository</h2>
-<p><a href="https://github.com/masoo/peegee">https://github.com/masoo/peegee</a></p>
-
-<h2>Buy coffee to the author.</h2>
-<p><a href="https://www.paypal.me/masoojp">https://www.paypal.me/masoojp</a></p>
-<p><a href="https://github.com/sponsors/masoo">https://github.com/sponsors/masoo</a></p>
+  <hr>
+  <div class="grid">
+    <div>
+      <article>
+        <header>
+          <h2>Support the Developer</h2>
+        </header>
+        <p>If you find this tool helpful, please consider supporting the developer. Your support helps maintain and improve this project.</p>
+        <div class="grid">
+          <a href="https://www.paypal.me/masoojp" role="button" class="secondary">
+            Support via PayPal
+          </a>
+          <a href="https://github.com/sponsors/masoo" role="button" class="contrast">
+            Support via GitHub Sponsors
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</main>
