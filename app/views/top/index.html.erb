@@ -1,100 +1,160 @@
 <header class="container">
   <hgroup>
     <h1>Peegee</h1>
-    <p>"Peegee" is Password Generators.</p>
+    <p>Secure Password Generator</p>
   </hgroup>
 </header>
 
 <main class="container">
-  <div class="grid">
-    <div>
-      <article>
-        <h3>Standard</h3>
-        <p>If you want to generate a standard password, <br>
-        access <%= link_to g_index_url(format: :txt), g_index_path(format: :txt) %>
-        or <%= link_to g_index_url(format: :json), g_index_path(format: :json) %></p>
-        </p>
-      </article>
-    </div>
-    <div>
-      <article>
-        <h3>日本語の”ひみつの質問”</h3>
-        <p>if you wont to generate Japanese Secret Questions, <br>
-        access <%= link_to japanese_secret_questions_url(format: :txt), japanese_secret_questions_path(format: :txt) %>
-        or <%= link_to japanese_secret_questions_url(format: :json), japanese_secret_questions_path(format: :json) %></p>
-        </p>
-      </article>
-    </div>
-  </div>
+  <section>
+    <article>
+      <header>
+        <h2>Use as MCP Server</h2>
+      </header>
+      <p>Peegee works as an MCP (Model Context Protocol) server. You can use it from VSCode, Claude Code, and more.</p>
 
-  <div class="grid">
-    <div>
-      <h2>Other Site Password Generators.</h2>
-    </div>
-  </div>
+      <details>
+        <summary><strong>VSCode Setup</strong></summary>
+        <p>Add this to your config file (.vscode/mcp.json):</p>
+        <pre><code>{
+  "servers": {
+    "Peegee": {
+      "type": "sse",
+      "url": "<%= request.base_url %>/mcp/sse"
+    }
+  }
+}
+</code></pre>
+      </details>
 
-  <div class="grid">
-    <div>
-      <article>
-        <header>クロネコメンバーズ's Password</header>
-        <p><%= link_to kuronekoyamato_co_jp_url, kuronekoyamato_co_jp_path %></p>
-      </article>
-    </div>
-    <div>
-      <article>
-        <header>ねんきんネット's Password</header>
-        <p><%= link_to nenkin_go_jp_url, nenkin_go_jp_path %></p>
-      </article>
-    </div>
-    <div>
-      <article>
-        <header>SBI証券's Password</header>
-        <p><%= link_to sbisec_co_jp_url, sbisec_co_jp_path %></p>
-      </article>
-    </div>
-  </div>
-  <div class="grid">
-    <div>
-      <article>
-        <header>スマートEX's Password</header>
-        <p><%= link_to smart_ex_jp_url, smart_ex_jp_path %></p>
-      </article>
-    </div>
-    <div></div>
-    <div></div>
-  </div>
+      <details>
+        <summary><strong>Claude Code Setup</strong></summary>
+        <ol>
+          <li>Run this command in your console:</li>
+          <li><code>claude mcp add --transport sse peegee <%= request.base_url %>/mcp/sse</code></li>
+          <li>If Claude Code is running, restart it</li>
+        </ol>
+      </details>
 
-  <hr>
-  <div class="grid">
-    <div>
+      <details>
+        <summary><strong>Available Tools</strong></summary>
+        <ul>
+          <li><code>peegee_generate_standard_password</code> - Generate standard password</li>
+          <li><code>peegee_generate_japanese_secret_question_password</code> - Generate password for Japanese secret questions</li>
+          <li><code>peegee_generate_kuroneko_password</code> - Generate password for Kuroneko Members</li>
+          <li><code>peegee_generate_nenkin_password</code> - Generate password for Nenkin Net</li>
+          <li><code>peegee_generate_sbisec_password</code> - Generate password for SBI Securities</li>
+        </ul>
+      </details>
+    </article>
+  </section>
+
+  <section>
+    <hgroup>
+      <h2>Password Generation API</h2>
+      <p>Generate secure and strong passwords instantly</p>
+    </hgroup>
+    <div class="grid">
       <article>
         <header>
-          <h2>Github Repository</h2>
+          <h3>Standard Password</h3>
         </header>
-        <main>
-          <p><a href="https://github.com/masoo/peegee">https://github.com/masoo/peegee</a></p>
-        </main>
+        <p>Generate standard passwords with uppercase, lowercase, numbers, and symbols.</p>
+        <div class="grid">
+          <%= link_to "TXT", g_index_path(format: :txt), role: "button", class: "outline" %>
+          <%= link_to "JSON", g_index_path(format: :json), role: "button", class: "outline" %>
+        </div>
+      </article>
+
+      <article>
+        <header>
+          <h3>Japanese Secret Questions</h3>
+        </header>
+        <p>Generate passwords for Japanese websites. Based on hiragana characters - easy to remember and secure.</p>
+        <div class="grid">
+          <%= link_to "TXT", japanese_secret_questions_path(format: :txt), role: "button", class: "outline" %>
+          <%= link_to "JSON", japanese_secret_questions_path(format: :json), role: "button", class: "outline" %>
+        </div>
       </article>
     </div>
-  </div>
+  </section>
 
-  <hr>
-  <div class="grid">
-    <div>
+  <section>
+    <hgroup>
+      <h2>Site-Specific Password Generation</h2>
+      <p>Fully compatible with each service's requirements</p>
+    </hgroup>
+    <div class="grid">
+      <article>
+        <header>
+          <h3>クロネコメンバーズ</h3>
+        </header>
+        <p>Generate passwords for Kuroneko Members (Yamato Transport).</p>
+        <div class="grid">
+          <%= link_to "TXT", kuronekoyamato_co_jp_path(format: :txt), role: "button", class: "outline" %>
+          <%= link_to "JSON", kuronekoyamato_co_jp_path(format: :json), role: "button", class: "outline" %>
+        </div>
+      </article>
+
+      <article>
+        <header>
+          <h3>ねんきんネット</h3>
+        </header>
+        <p>Generate passwords for Nenkin Net (Japan Pension Service).</p>
+        <div class="grid">
+          <%= link_to "TXT", nenkin_go_jp_path(format: :txt), role: "button", class: "outline" %>
+          <%= link_to "JSON", nenkin_go_jp_path(format: :json), role: "button", class: "outline" %>
+        </div>
+      </article>
+
+      <article>
+        <header>
+          <h3>SBI証券</h3>
+        </header>
+        <p>Generate passwords for SBI Securities.</p>
+        <div class="grid">
+          <%= link_to "TXT", sbisec_co_jp_path(format: :txt), role: "button", class: "outline" %>
+          <%= link_to "JSON", sbisec_co_jp_path(format: :json), role: "button", class: "outline" %>
+        </div>
+      </article>
+
+      <article>
+        <header>
+          <h3>スマートEX</h3>
+        </header>
+        <p>Generate passwords for Smart EX (JR Tokai Shinkansen).</p>
+        <div class="grid">
+          <%= link_to "TXT", smart_ex_jp_path(format: :txt), role: "button", class: "outline" %>
+          <%= link_to "JSON", smart_ex_jp_path(format: :json), role: "button", class: "outline" %>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="grid">
+      <article>
+        <header>
+          <h2>GitHub Repository</h2>
+        </header>
+        <p><a href="https://github.com/masoo/peegee">github.com/masoo/peegee</a></p>
+        <p>Open source and actively developed.</p>
+      </article>
+
       <article>
         <header>
           <h2>Support the Developer</h2>
         </header>
-        <p>If you find this tool helpful, please consider supporting the developer. Your support helps maintain and improve this project.</p>
+        <p>If you find this tool helpful, please consider supporting the developer.</p>
         <div class="grid">
           <a href="https://www.paypal.me/masoojp" role="button" class="secondary">
             Support via PayPal
           </a>
           <a href="https://github.com/sponsors/masoo" role="button" class="contrast">
-            Support via GitHub Sponsors
+            GitHub Sponsors
           </a>
         </div>
       </article>
     </div>
-  </div>
+  </section>
 </main>
