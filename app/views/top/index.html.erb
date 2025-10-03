@@ -69,6 +69,79 @@
     <div>
       <article>
         <header>
+          <h2>MCP Server</h2>
+        </header>
+        <main>
+          <p>PeegeeはModel Context Protocol (MCP)サーバーとして動作し、vscode 等のAIアシスタントから直接パスワード生成機能を利用できます。</p>
+
+          <h3>エンドポイント</h3>
+          <ul>
+            <li><code>/mcp/messages</code> - MCPメッセージエンドポイント</li>
+            <li><code>/mcp/sse</code> - Server-Sent Eventsエンドポイント</li>
+          </ul>
+
+          <h3>利用可能なツール</h3>
+          <details>
+            <summary><strong>PasswordGeneratorTool</strong> - 標準パスワード生成</summary>
+            <p>カスタマイズ可能なオプションで安全なパスワードを生成します。</p>
+            <ul>
+              <li>長さ指定 (デフォルト: 32)</li>
+              <li>大文字・小文字・数字・記号の組み合わせ</li>
+              <li>類似文字の除外オプション</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary><strong>HiraganaPasswordTool</strong> - ひらがなパスワード生成</summary>
+            <p>日本語サイトの「ひみつの質問」用にひらがなのみのパスワードを生成します。</p>
+          </details>
+
+          <details>
+            <summary><strong>PasswordStrengthTool</strong> - パスワード強度評価</summary>
+            <p>パスワードの強度とセキュリティを評価し、改善の推奨事項を提供します。</p>
+          </details>
+
+          <details>
+            <summary><strong>SiteSpecificPasswordTool</strong> - サイト別パスワード生成</summary>
+            <p>特定の日本語サイトの要件に準拠したパスワードを生成します。</p>
+            <ul>
+              <li>SBI証券 (sbi_securities)</li>
+              <li>ねんきんネット (nenkinnet)</li>
+              <li>クロネコメンバーズ (kuroneko_members)</li>
+              <li>スマートEX (smart_ex)</li>
+            </ul>
+          </details>
+
+          <h3>vscode での設定</h3>
+          <p><code>.vscode/mcp.json</code>に以下を追加してください:</p>
+          <pre><code>{
+  "servers": {
+    "Peegee": {
+      "url": "https://peegee.masoo.dev/mcp/sse"
+    }
+  }
+}
+          </code></pre>
+
+          <h3>Claude Desktopでの設定</h3>
+          <p><code>claude_desktop_config.json</code>に以下を追加してください:</p>
+          <pre><code>{
+  "mcpServers": {
+    "peegee": {
+      "url": "<%= request.base_url %>/mcp"
+    }
+  }
+}</code></pre>
+        </main>
+      </article>
+    </div>
+  </div>
+
+  <hr>
+  <div class="grid">
+    <div>
+      <article>
+        <header>
           <h2>Github Repository</h2>
         </header>
         <main>
