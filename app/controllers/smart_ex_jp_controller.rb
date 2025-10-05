@@ -2,7 +2,8 @@
 class SmartExJpController < ApplicationController
   # GET /smart-ex.jp
   def index
-    @password = Www::SmartExJp.create
+    generator = Www::SmartExJp.new
+    @password = generator.create
     evaluator = Passwords::StrengthEvaluator.new(@password)
     @entropy = evaluator.entropy
     @score = evaluator.score
