@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+# Hiragana Password Tool
 class HiraganaPasswordTool < ApplicationTool
   description "Generate a password using only hiragana characters (for Japanese sites)"
 
