@@ -117,6 +117,9 @@
           <%= link_to "JSON", sbisec_co_jp_path(format: :json), role: "button", class: "outline" %>
         </div>
       </article>
+    </div>
+    
+    <div class="grid">
 
       <article>
         <header>
@@ -127,6 +130,20 @@
           <%= link_to "TXT", smart_ex_jp_path(format: :txt), role: "button", class: "outline" %>
           <%= link_to "JSON", smart_ex_jp_path(format: :json), role: "button", class: "outline" %>
         </div>
+      </article>
+
+      <article>
+        <header>
+          <h3>楽天銀行</h3>
+        </header>
+        <p>Generate passwords for Rakuten Bank.</p>
+        <div class="grid">
+          <%= link_to "TXT", rakuten_bank_co_jp_path(format: :txt), role: "button", class: "outline" %>
+          <%= link_to "JSON", rakuten_bank_co_jp_path(format: :json), role: "button", class: "outline" %>
+        </div>
+      </article>
+
+      <article>
       </article>
     </div>
   </section>

@@ -67,6 +67,14 @@ class PasswordConfigurationResource < ApplicationResource
           length: 8,
           required_types: [ "uppercase", "lowercase", "numbers", "symbols" ],
           site_url: "https://www.smart-ex.jp"
+        },
+        rakuten_bank: {
+          name: "楽天銀行",
+          length: 12,
+          required_types: [ "uppercase", "lowercase", "numbers", "symbols" ],
+          allowed_symbols: "$-./:@[]_#&?",
+          special_requirement: "Must use only specific symbols: $-./:@[]_#&?",
+          site_url: "https://www.rakuten-bank.co.jp/guide/etc/password.html"
         }
       },
       recommendations: {
