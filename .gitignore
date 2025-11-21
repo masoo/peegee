@@ -35,6 +35,7 @@
 
 # Peegee Setting
 CLAUDE.md
+TODO.md
 .claude/
 .claude.*
 .vscode/
