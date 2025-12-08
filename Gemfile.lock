@@ -332,7 +332,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     zeitwerk (2.7.3)
-    zxcvbn-ruby (1.2.0)
+    zxcvbn-ruby (1.2.4)
 
 PLATFORMS
   x86_64-linux
