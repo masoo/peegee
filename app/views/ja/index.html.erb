@@ -1,0 +1,202 @@
+<% content_for :page_lang, "ja" %>
+<% content_for :title, "Peegee — 強いパスワードを、手間なく。" %>
+
+<%# ====================== HERO ====================== %>
+<section class="hero-block" id="generator">
+  <span class="chip"><span class="dot"></span>生成はブラウザの中だけ · どこにも送信されません</span>
+
+  <h1 class="hero">
+    強いパスワードを、<br>
+    <span class="muted">手間なく。</span>
+  </h1>
+  <p class="lede">
+    Peegee は、どんなサイトにも使える強くてユニークなパスワードを作ります。
+    ほかのジェネレーターでは扱いづらい、日本のサービス特有のクセのあるルールにも、さりげなく対応します。
+  </p>
+
+  <%# Mode segmented control (real radio inputs) %>
+  <form class="segments" role="radiogroup" aria-label="パスワードモード">
+    <input type="radio" name="mode" id="m-standard"  value="standard"  checked>
+    <label for="m-standard">標準</label>
+    <input type="radio" name="mode" id="m-japanese"  value="japanese">
+    <label for="m-japanese">日本語</label>
+  </form>
+
+  <article class="pw-card">
+    <div class="pw-card-body">
+      <div style="flex:1; min-width:0;">
+        <output id="pw-output" class="pw-display" aria-live="polite">…</output>
+        <div class="strength" aria-label="パスワード強度">
+          <div class="bars" id="pw-bars">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+          </div>
+          <strong id="pw-label">—</strong>
+          <small>· <span id="pw-entropy">0</span> bits</small>
+        </div>
+      </div>
+      <div class="pw-actions">
+        <button class="secondary outline" id="btn-regen" type="button">
+          <span aria-hidden="true">↻</span> 再生成
+        </button>
+        <button class="primary" id="btn-copy" type="button">
+          <span aria-hidden="true">⧉</span> <span id="btn-copy-label">コピー</span>
+        </button>
+      </div>
+    </div>
+  </article>
+</section>
+
+<%# ====================== LOCALIZED FOR JAPAN ====================== %>
+<section class="block" id="sites">
+  <div class="page" style="padding:0;">
+    <div class="sites-head">
+      <div>
+        <div class="eyebrow">日本のサービスに最適化</div>
+        <h2 style="margin:0; font-size:2rem; line-height:1.1; letter-spacing:-0.025em;">サービスごとのクセに、ぴったり合わせて生成。</h2>
+      </div>
+    </div>
+
+    <div class="sites-grid" id="sites-top"></div>
+
+    <details class="more-sites">
+      <summary class="toggle" role="button">
+        <span class="when-closed">すべて表示（5件）</span>
+        <span class="when-open">折りたたむ</span>
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </summary>
+      <div class="more-grid" id="sites-extra"></div>
+    </details>
+  </div>
+</section>
+
+<%# ====================== MCP ====================== %>
+<section class="block surface" id="mcp">
+  <div class="page" style="padding:0;">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">AI アシスタント向け · MCP</div>
+        <h2>パスワード生成は、AI アシスタントにおまかせ。</h2>
+        <p>
+          Peegee はリモート MCP サーバーとして動作します。一度つないでおけば、
+          Claude Code、Cursor、VS Code から好きなときに各ジェネレーターを呼び出せます。
+          API キーは不要、セットアップはコマンド 1 つで完了します。
+        </p>
+
+        <div class="tools-list">
+          <div class="label">使えるツール</div>
+          <ul>
+            <li><span class="name">generate_standard_password</span><span class="dots"></span><span class="desc">ランダム生成</span></li>
+            <li><span class="name">generate_japanese_secret_question</span><span class="dots"></span><span class="desc">ひらがな</span></li>
+            <li><span class="name">generate_kuroneko_password</span><span class="dots"></span><span class="desc">クロネコメンバーズ</span></li>
+            <li><span class="name">generate_nenkin_password</span><span class="dots"></span><span class="desc">ねんきんネット</span></li>
+            <li><span class="name">generate_sbisec_password</span><span class="dots"></span><span class="desc">SBI 証券</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <form class="mcp-tabs" role="radiogroup" aria-label="MCP クライアント">
+          <input type="radio" name="client" id="c-claude" value="claude" checked>
+          <label for="c-claude">Claude Code</label>
+          <input type="radio" name="client" id="c-vscode" value="vscode">
+          <label for="c-vscode">VS Code</label>
+          <input type="radio" name="client" id="c-cursor" value="cursor">
+          <label for="c-cursor">Cursor</label>
+        </form>
+
+        <pre class="code-block" data-mcp-url="<%= request.base_url %>/mcp/sse"><code id="mcp-code"></code>
+<button class="copy" id="mcp-copy" type="button">コピー</button></pre>
+
+        <div class="hint-row">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M8 5v3.5M8 11v.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          <span id="mcp-hint">コマンドを実行したら、Claude Code を再起動してください。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ====================== DEVELOPERS ====================== %>
+<section class="block surface" id="developers">
+  <div class="page" style="padding:0;">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">開発者向け</div>
+        <h2>エンドポイントを叩くだけで、新しいパスワード。</h2>
+        <p>
+          TXT または JSON を HTTPS で返します。API キーもレート制限もありません。
+          シェルでもスクリプトでも CI でも、そのまま呼び出すだけです。
+        </p>
+      </div>
+      <div class="endpoints">
+        <div class="row">
+          <span class="method">GET</span>
+          <span class="path"><%= g_index_path(format: :json) %></span>
+          <span class="desc">標準パスワード</span>
+        </div>
+        <div class="row">
+          <span class="method">GET</span>
+          <span class="path"><%= japanese_secret_questions_path(format: :json) %></span>
+          <span class="desc">ひらがな（日本語）</span>
+        </div>
+        <div class="row">
+          <span class="method">GET</span>
+          <span class="path"><%= sbisec_co_jp_path(format: :json) %></span>
+          <span class="desc">SBI 証券</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ====================== SUPPORT / SPONSORS ====================== %>
+<section class="block" id="support">
+  <div class="page" style="padding:0;">
+    <div class="support-card">
+      <div class="support-copy">
+        <div class="eyebrow">開発者からのお願い</div>
+        <h2>Peegee は無料です。これからもずっと。</h2>
+        <p>
+          Peegee に広告はありません。アカウント登録もトラッキングも有料プランもなし。
+          私が空いた時間でつくって運営している、ささやかなツールです。
+          これからも、このままの形で続けていきたいと思っています。
+          もし Peegee のおかげで「またパスワードを考えなきゃ」という手間が減ったなら、
+          月に数ドルのご支援でサーバー代と週末のメンテナンスをまかなえると、とても助かります。
+        </p>
+        <p class="support-thanks">
+          支援するしないにかかわらず — Peegee を使ってくれてありがとうございます。
+          もし、いまだに <code>Password1!</code> を銀行に入力している友達がいたら、ぜひ教えてあげてください。
+        </p>
+        <div class="support-actions">
+          <a class="support-primary" href="https://github.com/sponsors/masoo" target="_blank" rel="noopener">
+            GitHub でスポンサーになる
+          </a>
+          <a class="support-secondary" href="https://github.com/masoo/peegee" target="_blank" rel="noopener">
+            リポジトリにスターをつける
+          </a>
+        </div>
+      </div>
+      <aside class="support-tiers">
+        <div class="support-tier-label">おすすめの金額 · 月額</div>
+        <ul>
+          <li>
+            <span class="amt">$1<small>/月</small></span>
+            <span class="label">開発者にコーヒーを一杯</span>
+          </li>
+          <li>
+            <span class="amt">$5<small>/月</small></span>
+            <span class="label">ちゃんとしたランチを一食</span>
+          </li>
+        </ul>
+        <div class="support-tier-note">
+          一回だけのご支援や、好きな金額での支援も GitHub Sponsors から受け付けています。
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

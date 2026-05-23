@@ -1,177 +1,199 @@
-<header class="container">
-  <hgroup>
-    <h1>Peegee</h1>
-    <p>Secure Password Generator</p>
-  </hgroup>
-</header>
+<%# ====================== HERO ====================== %>
+<section class="hero-block" id="generator">
+  <span class="chip"><span class="dot"></span>Generated in your browser · never sent anywhere</span>
 
-<main class="container">
-  <section>
-    <article>
-      <header>
-        <h2>Use as MCP Server</h2>
-      </header>
-      <p>Peegee works as an MCP (Model Context Protocol) server. You can use it from VSCode, Claude Code, and more.</p>
+  <h1 class="hero">
+    Strong passwords,<br>
+    <span class="muted">without the fuss.</span>
+  </h1>
+  <p class="lede">
+    Peegee generates strong, unique passwords for any site — and quietly handles
+    the awkward rules of Japanese services that other generators don't.
+  </p>
 
-      <details>
-        <summary><strong>VSCode Setup</strong></summary>
-        <p>Add this to your config file (.vscode/mcp.json):</p>
-        <pre><code>{
-  "servers": {
-    "Peegee": {
-      "type": "sse",
-      "url": "<%= request.base_url %>/mcp/sse"
-    }
-  }
-}
-</code></pre>
-      </details>
+  <%# Mode segmented control (real radio inputs) %>
+  <form class="segments" role="radiogroup" aria-label="Password mode">
+    <input type="radio" name="mode" id="m-standard"  value="standard"  checked>
+    <label for="m-standard">Standard</label>
+    <input type="radio" name="mode" id="m-japanese"  value="japanese">
+    <label for="m-japanese">Japanese</label>
+  </form>
 
-      <details>
-        <summary><strong>Claude Code Setup</strong></summary>
-        <ol>
-          <li>Run this command in your console:</li>
-          <li><code>claude mcp add --transport sse peegee <%= request.base_url %>/mcp/sse</code></li>
-          <li>If Claude Code is running, restart it</li>
-        </ol>
-      </details>
+  <article class="pw-card">
+    <div class="pw-card-body">
+      <div style="flex:1; min-width:0;">
+        <output id="pw-output" class="pw-display" aria-live="polite">…</output>
+        <div class="strength" aria-label="Password strength">
+          <div class="bars" id="pw-bars">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+          </div>
+          <strong id="pw-label">—</strong>
+          <small>· <span id="pw-entropy">0</span> bits</small>
+        </div>
+      </div>
+      <div class="pw-actions">
+        <button class="secondary outline" id="btn-regen" type="button">
+          <span aria-hidden="true">↻</span> Regenerate
+        </button>
+        <button class="primary" id="btn-copy" type="button">
+          <span aria-hidden="true">⧉</span> <span id="btn-copy-label">Copy</span>
+        </button>
+      </div>
+    </div>
+  </article>
+</section>
 
-      <details>
-        <summary><strong>Available Tools</strong></summary>
+<%# ====================== LOCALIZED FOR JAPAN ====================== %>
+<section class="block" id="sites">
+  <div class="page" style="padding:0;">
+    <div class="sites-head">
+      <div>
+        <div class="eyebrow">Localized for Japan</div>
+        <h2 style="margin:0; font-size:2rem; line-height:1.1; letter-spacing:-0.025em;">Tuned to each service's quirks</h2>
+      </div>
+    </div>
+
+    <div class="sites-grid" id="sites-top"></div>
+
+    <details class="more-sites">
+      <summary class="toggle" role="button">
+        <span class="when-closed">Show all 5</span>
+        <span class="when-open">Show less</span>
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </summary>
+      <div class="more-grid" id="sites-extra"></div>
+    </details>
+  </div>
+</section>
+
+<%# ====================== MCP ====================== %>
+<section class="block surface" id="mcp">
+  <div class="page" style="padding:0;">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">For AI assistants · MCP</div>
+        <h2>Let your AI assistant generate passwords for you.</h2>
+        <p>
+          Peegee runs as a remote MCP server. Connect it once and Claude
+          Code, Cursor, or VS Code can call any generator on demand — no API
+          keys, no setup beyond a single command.
+        </p>
+
+        <div class="tools-list">
+          <div class="label">Available tools</div>
+          <ul>
+            <li><span class="name">generate_standard_password</span><span class="dots"></span><span class="desc">Strong random</span></li>
+            <li><span class="name">generate_japanese_secret_question</span><span class="dots"></span><span class="desc">Hiragana</span></li>
+            <li><span class="name">generate_kuroneko_password</span><span class="dots"></span><span class="desc">Yamato members</span></li>
+            <li><span class="name">generate_nenkin_password</span><span class="dots"></span><span class="desc">Pension service</span></li>
+            <li><span class="name">generate_sbisec_password</span><span class="dots"></span><span class="desc">Securities</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <form class="mcp-tabs" role="radiogroup" aria-label="MCP client">
+          <input type="radio" name="client" id="c-claude" value="claude" checked>
+          <label for="c-claude">Claude Code</label>
+          <input type="radio" name="client" id="c-vscode" value="vscode">
+          <label for="c-vscode">VS Code</label>
+          <input type="radio" name="client" id="c-cursor" value="cursor">
+          <label for="c-cursor">Cursor</label>
+        </form>
+
+        <pre class="code-block" data-mcp-url="<%= request.base_url %>/mcp/sse"><code id="mcp-code"></code>
+<button class="copy" id="mcp-copy" type="button">Copy</button></pre>
+
+        <div class="hint-row">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M8 5v3.5M8 11v.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          <span id="mcp-hint">Restart Claude Code after running the command.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ====================== DEVELOPERS ====================== %>
+<section class="block surface" id="developers">
+  <div class="page" style="padding:0;">
+    <div class="two-col">
+      <div>
+        <div class="eyebrow">For developers</div>
+        <h2>One endpoint away from a fresh password.</h2>
+        <p>
+          Plain TXT or JSON over HTTPS. No keys, no quotas — just hit the
+          endpoint from your shell, your script, or your CI.
+        </p>
+      </div>
+      <div class="endpoints">
+        <div class="row">
+          <span class="method">GET</span>
+          <span class="path"><%= g_index_path(format: :json) %></span>
+          <span class="desc">Standard password</span>
+        </div>
+        <div class="row">
+          <span class="method">GET</span>
+          <span class="path"><%= japanese_secret_questions_path(format: :json) %></span>
+          <span class="desc">Japanese hiragana</span>
+        </div>
+        <div class="row">
+          <span class="method">GET</span>
+          <span class="path"><%= sbisec_co_jp_path(format: :json) %></span>
+          <span class="desc">SBI Securities</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# ====================== SUPPORT / SPONSORS ====================== %>
+<section class="block" id="support">
+  <div class="page" style="padding:0;">
+    <div class="support-card">
+      <div class="support-copy">
+        <div class="eyebrow">A note from the maintainer</div>
+        <h2>Peegee is free, and stays free.</h2>
+        <p>
+          Peegee has no ads, no accounts, no tracking, and no paid tier. It's
+          a tiny tool I built and run on my own time — and I'd like to keep it
+          that way. If Peegee has saved you from inventing yet another
+          password, a few dollars a month helps cover the server and the
+          quiet weekends spent maintaining it.
+        </p>
+        <p class="support-thanks">
+          Either way — thanks for using Peegee. Pass it on to a friend who's
+          still typing <code>Password1!</code> into their bank.
+        </p>
+        <div class="support-actions">
+          <a class="support-primary" href="https://github.com/sponsors/masoo" target="_blank" rel="noopener">
+            Become a sponsor on GitHub
+          </a>
+          <a class="support-secondary" href="https://github.com/masoo/peegee" target="_blank" rel="noopener">
+            Star the repo instead
+          </a>
+        </div>
+      </div>
+      <aside class="support-tiers">
+        <div class="support-tier-label">Suggested tiers · per month</div>
         <ul>
-          <li><code>peegee_generate_standard_password</code> - Generate standard password</li>
-          <li><code>peegee_generate_japanese_secret_question_password</code> - Generate password for Japanese secret questions</li>
-          <li><code>peegee_generate_kuroneko_password</code> - Generate password for Kuroneko Members</li>
-          <li><code>peegee_generate_nenkin_password</code> - Generate password for Nenkin Net</li>
-          <li><code>peegee_generate_sbisec_password</code> - Generate password for SBI Securities</li>
+          <li>
+            <span class="amt">$1<small>/mo</small></span>
+            <span class="label">A coffee for the maintainer</span>
+          </li>
+          <li>
+            <span class="amt">$5<small>/mo</small></span>
+            <span class="label">Lunch — a proper one</span>
+          </li>
         </ul>
-      </details>
-    </article>
-  </section>
-
-  <section>
-    <hgroup>
-      <h2>Password Generation API</h2>
-      <p>Generate secure and strong passwords instantly</p>
-    </hgroup>
-    <div class="grid">
-      <article>
-        <header>
-          <h3>Standard Password</h3>
-        </header>
-        <p>Generate standard passwords with uppercase, lowercase, numbers, and symbols.</p>
-        <div class="grid">
-          <%= link_to "TXT", g_index_path(format: :txt), role: "button", class: "outline" %>
-          <%= link_to "JSON", g_index_path(format: :json), role: "button", class: "outline" %>
+        <div class="support-tier-note">
+          One-time gifts and custom amounts are also welcome on GitHub Sponsors.
         </div>
-      </article>
-
-      <article>
-        <header>
-          <h3>Japanese Secret Questions</h3>
-        </header>
-        <p>Generate passwords for Japanese websites. Based on hiragana characters - easy to remember and secure.</p>
-        <div class="grid">
-          <%= link_to "TXT", japanese_secret_questions_path(format: :txt), role: "button", class: "outline" %>
-          <%= link_to "JSON", japanese_secret_questions_path(format: :json), role: "button", class: "outline" %>
-        </div>
-      </article>
+      </aside>
     </div>
-  </section>
-
-  <section>
-    <hgroup>
-      <h2>Site-Specific Password Generation</h2>
-      <p>Fully compatible with each service's requirements</p>
-    </hgroup>
-    <div class="grid">
-      <article>
-        <header>
-          <h3>クロネコメンバーズ</h3>
-        </header>
-        <p>Generate passwords for Kuroneko Members (Yamato Transport).</p>
-        <div class="grid">
-          <%= link_to "TXT", kuronekoyamato_co_jp_path(format: :txt), role: "button", class: "outline" %>
-          <%= link_to "JSON", kuronekoyamato_co_jp_path(format: :json), role: "button", class: "outline" %>
-        </div>
-      </article>
-
-      <article>
-        <header>
-          <h3>ねんきんネット</h3>
-        </header>
-        <p>Generate passwords for Nenkin Net (Japan Pension Service).</p>
-        <div class="grid">
-          <%= link_to "TXT", nenkin_go_jp_path(format: :txt), role: "button", class: "outline" %>
-          <%= link_to "JSON", nenkin_go_jp_path(format: :json), role: "button", class: "outline" %>
-        </div>
-      </article>
-
-      <article>
-        <header>
-          <h3>SBI証券</h3>
-        </header>
-        <p>Generate passwords for SBI Securities.</p>
-        <div class="grid">
-          <%= link_to "TXT", sbisec_co_jp_path(format: :txt), role: "button", class: "outline" %>
-          <%= link_to "JSON", sbisec_co_jp_path(format: :json), role: "button", class: "outline" %>
-        </div>
-      </article>
-    </div>
-    
-    <div class="grid">
-
-      <article>
-        <header>
-          <h3>スマートEX</h3>
-        </header>
-        <p>Generate passwords for Smart EX (JR Tokai Shinkansen).</p>
-        <div class="grid">
-          <%= link_to "TXT", smart_ex_jp_path(format: :txt), role: "button", class: "outline" %>
-          <%= link_to "JSON", smart_ex_jp_path(format: :json), role: "button", class: "outline" %>
-        </div>
-      </article>
-
-      <article>
-        <header>
-          <h3>楽天銀行</h3>
-        </header>
-        <p>Generate passwords for Rakuten Bank.</p>
-        <div class="grid">
-          <%= link_to "TXT", rakuten_bank_co_jp_path(format: :txt), role: "button", class: "outline" %>
-          <%= link_to "JSON", rakuten_bank_co_jp_path(format: :json), role: "button", class: "outline" %>
-        </div>
-      </article>
-
-      <article>
-      </article>
-    </div>
-  </section>
-
-  <section>
-    <div class="grid">
-      <article>
-        <header>
-          <h2>GitHub Repository</h2>
-        </header>
-        <p><a href="https://github.com/masoo/peegee">github.com/masoo/peegee</a></p>
-        <p>Open source and actively developed.</p>
-      </article>
-
-      <article>
-        <header>
-          <h2>Support the Developer</h2>
-        </header>
-        <p>If you find this tool helpful, please consider supporting the developer.</p>
-        <div class="grid">
-          <a href="https://www.paypal.me/masoojp" role="button" class="secondary">
-            Support via PayPal
-          </a>
-          <a href="https://github.com/sponsors/masoo" role="button" class="contrast">
-            GitHub Sponsors
-          </a>
-        </div>
-      </article>
-    </div>
-  </section>
-</main>
+  </div>
+</section>

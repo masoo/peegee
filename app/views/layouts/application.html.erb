@@ -1,7 +1,9 @@
+<% page_lang = content_for?(:page_lang) ? content_for(:page_lang) : "en" %>
 <!DOCTYPE html>
-<html>
+<html lang="<%= page_lang %>">
   <head>
-    <title><%= content_for(:title) || "Peegee" %></title>
+    <title><%= content_for(:title) || "Peegee — Strong passwords, without the fuss" %></title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -17,13 +19,61 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css">
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
   </head>
 
   <body>
+    <% if page_lang == "ja" %>
+      <nav class="site">
+        <a href="<%= ja_index_path %>" class="brand">
+          <%= image_tag "/icon.svg", alt: "", class: "mark", width: 26, height: 26 %>
+          Peegee
+        </a>
+        <ul>
+          <li><a href="#generator">生成</a></li>
+          <li><a href="#sites">対応サイト</a></li>
+          <li><a href="#mcp">MCP</a></li>
+          <li><a href="#developers">開発者向け</a></li>
+          <li><a href="https://github.com/masoo/peegee">GitHub</a></li>
+          <li><a href="#support" class="sponsor-btn">サポート</a></li>
+        </ul>
+      </nav>
+    <% else %>
+      <nav class="site">
+        <a href="<%= root_path %>" class="brand">
+          <%= image_tag "/icon.svg", alt: "", class: "mark", width: 26, height: 26 %>
+          Peegee
+        </a>
+        <ul>
+          <li><a href="#generator">Generator</a></li>
+          <li><a href="#sites">Sites</a></li>
+          <li><a href="#mcp">MCP</a></li>
+          <li><a href="#developers">Developers</a></li>
+          <li><a href="https://github.com/masoo/peegee">GitHub</a></li>
+          <li><a href="#support" class="sponsor-btn">Support</a></li>
+        </ul>
+      </nav>
+    <% end %>
+
+
     <%= yield %>
+
+    <% if page_lang == "ja" %>
+      <footer class="site">
+        <span>Peegee · オープンソース · MIT</span>
+        <span><a href="https://github.com/masoo/peegee">github.com/masoo/peegee</a></span>
+      </footer>
+    <% else %>
+      <footer class="site">
+        <span>Peegee · open source · MIT</span>
+        <span><a href="https://github.com/masoo/peegee">github.com/masoo/peegee</a></span>
+      </footer>
+    <% end %>
   </body>
 </html>
