@@ -89,7 +89,7 @@
 
   // ---------- Japan presets ----------
   const TOP = ['kuroneko', 'sbisec', 'rakuten'];
-  const EXTRA = ['nenkin', 'smartex'];
+  const EXTRA = ['nenkin', 'smartex', 'jal'];
   const $topGrid = document.getElementById('sites-top');
   const $extraGrid = document.getElementById('sites-extra');
 

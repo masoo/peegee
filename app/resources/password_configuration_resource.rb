@@ -75,6 +75,16 @@ class PasswordConfigurationResource < ApplicationResource
           allowed_symbols: "$-./:@[]_#&?",
           special_requirement: "Must use only specific symbols: $-./:@[]_#&?",
           site_url: "https://www.rakuten-bank.co.jp/guide/etc/password.html"
+        },
+        jal: {
+          name: "JALマイレージバンク",
+          length: 32,
+          min_length: 8,
+          max_length: nil,
+          required_types: [ "uppercase", "lowercase", "numbers", "symbols" ],
+          allowed_symbols: '!"#$%&()+,-./:;<=>@[]^_{',
+          special_requirement: "At least 2 of {uppercase, lowercase, numbers, symbols}; no documented max length. Allowed symbols are the officially published set.",
+          site_url: "https://www.jal.co.jp/jp/ja/jmb/jmb-login/password/"
         }
       },
       recommendations: {
