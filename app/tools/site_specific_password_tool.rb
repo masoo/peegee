@@ -4,7 +4,7 @@ class SiteSpecificPasswordTool < ApplicationTool
   description "Generate passwords for specific Japanese websites with their requirements"
 
   arguments do
-    required(:site).filled(:string).description("Site name: sbi_securities, nenkinnet, kuroneko_members, rakuten_bank")
+    required(:site).filled(:string).description("Site name: sbi_securities, nenkinnet, kuroneko_members, smart_ex, rakuten_bank, jal")
   end
 
   def call(site:)
@@ -19,10 +19,12 @@ class SiteSpecificPasswordTool < ApplicationTool
       generate_password(generator: Www::SmartExJp.new, site: "Smart EX")
     when "rakuten_bank"
       generate_password(generator: Www::RakutenBankCoJp.new, site: "Rakuten Bank")
+    when "jal", "jal_mileage_bank", "jmb"
+      generate_password(generator: Www::JalCoJp.new, site: "JAL Mileage Bank")
     else
       {
         error: "Unknown site: #{site}",
-        available_sites: [ "sbi_securities", "nenkinnet", "kuroneko_members", "smart_ex", "rakuten_bank" ]
+        available_sites: [ "sbi_securities", "nenkinnet", "kuroneko_members", "smart_ex", "rakuten_bank", "jal" ]
       }
     end
   end

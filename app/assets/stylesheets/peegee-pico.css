@@ -234,7 +234,10 @@ details.more-sites > summary.toggle {
   display: inline-flex; align-items: center; gap: .5rem;
   padding: .5rem .9rem; border-radius: 999px;
   border: 1px solid var(--line-strong); background: #fff;
-  font-size: .82rem; font-weight: 500; color: var(--pico-color);
+  /* Pico の [role=button] が要素ローカルで --pico-color を白(primary-inverse)に
+     上書きするため、var(--pico-color) だと白背景(#fff)に白文字となり読めない。
+     文字色を直接黒に固定する。 */
+  font-size: .82rem; font-weight: 500; color: #0f0f0e;
 }
 details.more-sites > summary.toggle:hover { background: #f4f3ef; }
 details.more-sites > summary.toggle svg { transition: transform .25s; }

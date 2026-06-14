@@ -10,6 +10,7 @@
     sbisec:   { label: 'SBI Securities',   hint: '10-20 chars · letters + numbers + 2 symbols', endpoint: '/sbisec.co.jp.json' },
     smartex:  { label: 'Smart EX',         hint: '4-8 chars · letters / numbers / symbols',   endpoint: '/smart-ex.jp.json' },
     rakuten:  { label: 'Rakuten Bank',     hint: '8-12 chars · upper + lower + number + symbol', endpoint: '/rakuten-bank.co.jp.json' },
+    jal:      { label: 'JAL Mileage Bank', hint: '8+ chars · 2+ of upper/lower/number/symbol', endpoint: '/jal.co.jp.json' },
   };
   const SITE_JA = {
     kuroneko: { label: 'クロネコメンバーズ', hint: '8〜15文字 · 英字 + 数字 + 記号',           endpoint: '/kuronekoyamato.co.jp.json' },
@@ -17,6 +18,7 @@
     sbisec:   { label: 'SBI 証券',          hint: '10〜20文字 · 英字 + 数字 + 記号2文字',      endpoint: '/sbisec.co.jp.json' },
     smartex:  { label: 'スマート EX',        hint: '4〜8文字 · 英字 / 数字 / 記号',             endpoint: '/smart-ex.jp.json' },
     rakuten:  { label: '楽天銀行',           hint: '8〜12文字 · 大文字 + 小文字 + 数字 + 記号', endpoint: '/rakuten-bank.co.jp.json' },
+    jal:      { label: 'JALマイレージバンク', hint: '8文字以上 · 大文字/小文字/数字/記号から2種類以上', endpoint: '/jal.co.jp.json' },
   };
   const SITE = new Proxy({}, { get: (_, k) => (isJa() ? SITE_JA : SITE_EN)[k] });
 

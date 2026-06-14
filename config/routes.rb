@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   get "rakuten-bank.co.jp", to: "rakuten_bank_co_jp#index", as: "rakuten_bank_co_jp"
   get "sbisec.co.jp", to: "sbisec_co_jp#index", as: "sbisec_co_jp"
   get "smart-ex.jp", to: "smart_ex_jp#index", as: "smart_ex_jp"
+  get "jal.co.jp", to: "jal_co_jp#index", as: "jal_co_jp"
 end
