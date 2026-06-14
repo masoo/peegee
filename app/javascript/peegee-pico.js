@@ -34,7 +34,7 @@
   const $out = document.getElementById('pw-output');
   const $bars = document.getElementById('pw-bars');
   const $label = document.getElementById('pw-label');
-  const $entropy = document.getElementById('pw-entropy');
+  const $guesses = document.getElementById('pw-guesses');
   const $copy = document.getElementById('btn-copy');
   const $copyLabel = document.getElementById('btn-copy-label');
   const $regen = document.getElementById('btn-regen');
@@ -43,27 +43,30 @@
     return document.querySelector('input[name="mode"]:checked').value;
   }
 
-  async function generate() {
-    const url = currentMode() === 'japanese' ? '/japanese_secret_questions.json' : '/g.json';
-    const res = await fetch(url, { headers: { Accept: 'application/json' } });
-    const data = await res.json();
-    return data.password;
-  }
-
-  async function render() {
-    const pw = await generate();
-    $out.textContent = pw;
-    const s = PG.strength(pw);
-    $label.textContent = s.label;
-    $entropy.textContent = s.entropy;
-    const bars = $bars.querySelectorAll('.bar');
-    bars.forEach((b, i) => {
+  // Apply a strength result to a row of 4 bars (shared by hero + site cards).
+  function applyBars($barsEl, s) {
+    $barsEl.querySelectorAll('.bar').forEach((b, i) => {
       b.classList.remove('on', 'strong');
       if (i < s.score) {
         b.classList.add('on');
         if (s.score >= 3) b.classList.add('strong');
       }
     });
+  }
+
+  async function generate() {
+    const url = currentMode() === 'japanese' ? '/japanese_secret_questions.json' : '/g.json';
+    const res = await fetch(url, { headers: { Accept: 'application/json' } });
+    return res.json();
+  }
+
+  async function render() {
+    const data = await generate();
+    $out.textContent = data.password;
+    const s = PG.strength(data);
+    $label.textContent = s.label;
+    $guesses.textContent = s.guessesLog10;
+    applyBars($bars, s);
   }
 
   $regen.addEventListener('click', render);
@@ -93,8 +96,7 @@
   async function sitePassword(id) {
     const rule = PG.SITE[id];
     const res = await fetch(rule.endpoint, { headers: { Accept: 'application/json' } });
-    const data = await res.json();
-    return data.password;
+    return res.json();
   }
 
   function siteCardHTML(id) {
@@ -106,6 +108,12 @@
           <h3>${rule.label}</h3>
         </header>
         <p class="hint">${rule.hint}</p>
+        <div class="strength" aria-label="${JA ? 'パスワード強度' : 'Password strength'}">
+          <div class="bars">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+          </div>
+          <strong class="site-strength-label">—</strong>
+        </div>
         <div class="pw-row">
           <code class="site-pw">…</code>
           <button class="regen" type="button" title="Regenerate" aria-label="Regenerate">
@@ -128,13 +136,22 @@
   `;
 
   // delegated handlers for all site cards
-  document.querySelectorAll('.site-card').forEach(async card => {
+  document.querySelectorAll('.site-card').forEach(card => {
     const id = card.dataset.site;
     const $pw = card.querySelector('.site-pw');
-    $pw.textContent = await sitePassword(id);
-    card.querySelector('.regen').addEventListener('click', async () => {
-      $pw.textContent = await sitePassword(id);
-    });
+    const $sbars = card.querySelector('.bars');
+    const $slabel = card.querySelector('.site-strength-label');
+
+    async function fill() {
+      const data = await sitePassword(id);
+      $pw.textContent = data.password;
+      const s = PG.strength(data);
+      $slabel.textContent = s.label;
+      applyBars($sbars, s);
+    }
+
+    fill();
+    card.querySelector('.regen').addEventListener('click', fill);
     const $copyBtn = card.querySelector('.copy');
     $copyBtn.addEventListener('click', async () => {
       await PG.copy($pw.textContent);

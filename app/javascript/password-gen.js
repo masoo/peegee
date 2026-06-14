@@ -20,29 +20,24 @@
   };
   const SITE = new Proxy({}, { get: (_, k) => (isJa() ? SITE_JA : SITE_EN)[k] });
 
+  // zxcvbn score (0-4) → human label, in ascending order.
   const STRENGTH_LABELS = {
-    en: { dash: '—', weak: 'Weak', fair: 'Fair', strong: 'Strong', veryStrong: 'Very strong' },
-    ja: { dash: '—', weak: '弱い',   fair: '普通',  strong: '強い',  veryStrong: '非常に強い' },
+    en: { dash: '—', levels: ['Very weak', 'Weak', 'Fair', 'Strong', 'Very strong'] },
+    ja: { dash: '—', levels: ['非常に弱い', '弱い', '普通', '強い', '非常に強い'] },
   };
 
-  // Strength scoring — rough heuristic 0-4
-  function strength(pw) {
+  // Map a server strength result ({ guesses_log10, score }) to display info.
+  // The score comes straight from zxcvbn (0-4), so the bars and label stay in
+  // sync with what the API and other clients report.
+  function strength(result) {
     const L = STRENGTH_LABELS[isJa() ? 'ja' : 'en'];
-    if (!pw) return { score: 0, label: L.dash };
-    const len = pw.length;
-    let pool = 0;
-    if (/[a-z]/.test(pw)) pool += 26;
-    if (/[A-Z]/.test(pw)) pool += 26;
-    if (/[0-9]/.test(pw)) pool += 10;
-    if (/[^a-zA-Z0-9]/.test(pw)) pool += 30;
-    if (/[぀-ゟ]/.test(pw)) pool += 80; // hiragana
-    const entropy = Math.log2(Math.max(pool, 1)) * len;
-    let score, label;
-    if (entropy < 28) { score = 1; label = L.weak; }
-    else if (entropy < 50) { score = 2; label = L.fair; }
-    else if (entropy < 80) { score = 3; label = L.strong; }
-    else { score = 4; label = L.veryStrong; }
-    return { score, label, entropy: Math.round(entropy) };
+    if (!result || result.score == null) return { score: 0, label: L.dash, guessesLog10: 0 };
+    const score = result.score;
+    return {
+      score,
+      label: L.levels[score] || L.dash,
+      guessesLog10: Math.round(result.guesses_log10 || 0),
+    };
   }
 
   async function copy(text) {

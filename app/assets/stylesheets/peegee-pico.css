@@ -180,7 +180,7 @@ section.block.surface { background: #ffffff; border-top: 1px solid var(--line); 
   padding: 1.25rem 1.35rem; border-radius: 14px;
   border: 1px solid var(--line); background: #fff;
   display: flex; flex-direction: column; gap: .75rem;
-  min-height: 154px;
+  min-height: 184px;
 }
 .site-card header { display: flex; align-items: center; gap: .5rem; padding: 0; border: 0; background: none; }
 .site-card .tag {
@@ -191,7 +191,7 @@ section.block.surface { background: #ffffff; border-top: 1px solid var(--line); 
 .site-card h3 { margin: 0; font-size: .88rem; font-weight: 600; letter-spacing: -0.01em; color: var(--pico-color); }
 .site-card .hint { font-size: .69rem; color: var(--ink-3); margin: 0; }
 .site-card .pw-row {
-  margin-top: auto; display: flex; align-items: center; gap: .5rem;
+  margin-top: .5rem; display: flex; align-items: center; gap: .5rem;
   padding: .625rem .75rem; border-radius: 8px;
   background: #fbfaf7; border: 1px solid var(--line);
 }
@@ -208,6 +208,12 @@ section.block.surface { background: #ffffff; border-top: 1px solid var(--line); 
   background: transparent; border: none; color: var(--pico-muted-color);
 }
 .site-card .pw-row button.copy { font-size: .65rem; }
+
+/* Strength meter inside each site card (compact variant of .strength) */
+.site-card .strength { margin-top: auto; gap: .5rem; }
+.site-card .strength .bars { gap: 3px; }
+.site-card .strength .bar { width: 16px; }
+.site-card .strength strong { font-size: .68rem; }
 
 /* Accordion using <details> for the extra Japan presets.
    column-reverse keeps the toggle visually centered below the cards,
