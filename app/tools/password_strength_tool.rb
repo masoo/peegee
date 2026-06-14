@@ -8,14 +8,13 @@ class PasswordStrengthTool < ApplicationTool
   end
 
   def call(password:)
-    entropy = Passwords::Generators.entropy(password)
-    score = Passwords::Generators.score(password)
+    evaluator = Passwords::StrengthEvaluator.new(password)
     password_chars = password.chars
 
     {
       password_length: password.length,
-      entropy: entropy,
-      score: score,
+      guesses_log10: evaluator.guesses_log10,
+      score: evaluator.score,
       options: {
         include_uppercase: password_chars.any? { |char| Passwords::StandardGenerator::DEFAULT_UPPERCASE_ALPHABETS.include?(char) },
         include_lowercase: password_chars.any? { |char| Passwords::StandardGenerator::DEFAULT_LOWERCASE_ALPHABETS.include?(char) },

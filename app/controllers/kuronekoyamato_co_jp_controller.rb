@@ -5,7 +5,7 @@ class KuronekoyamatoCoJpController < ApplicationController
     generator = Www::KuronekoyamatoCoJp.new
     @password = generator.create
     evaluator = Passwords::StrengthEvaluator.new(@password)
-    @entropy = evaluator.entropy
+    @guesses_log10 = evaluator.guesses_log10
     @score = evaluator.score
 
     render_password_response

@@ -14,7 +14,7 @@ class HiraganaPasswordTool < ApplicationTool
     {
       password: password,
       length: password.length,
-      entropy: evaluator.entropy,
+      guesses_log10: evaluator.guesses_log10,
       score: evaluator.score,
       type: "hiragana",
       description: "Password generated using only hiragana characters (あ-ん)"

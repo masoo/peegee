@@ -38,7 +38,7 @@ class SiteSpecificPasswordTool < ApplicationTool
       site: site,
       password: generator.password,
       length: generator.password.length,
-      entropy: evaluator.entropy,
+      guesses_log10: evaluator.guesses_log10,
       score: evaluator.score,
       requirements: generator.requirements
     }

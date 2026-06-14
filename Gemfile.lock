@@ -82,7 +82,7 @@ GEM
     bigdecimal (4.1.2)
     bootsnap (1.24.6)
       msgpack (~> 1.2)
-    brakeman (8.0.4)
+    brakeman (8.0.5)
       racc
     builder (3.3.0)
     concurrent-ruby (1.3.6)
@@ -153,7 +153,7 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jb (0.8.2)
-    json (2.19.8)
+    json (2.19.9)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -175,8 +175,8 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.1)
-    net-imap (0.6.4)
+    msgpack (1.8.3)
+    net-imap (0.6.4.1)
       date
       net-protocol
     net-pop (0.1.2)
@@ -202,7 +202,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.3-x86_64-linux-musl)
       racc (~> 1.4)
-    parallel (1.28.0)
+    parallel (2.1.0)
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
@@ -276,11 +276,11 @@ GEM
     regexp_parser (2.12.0)
     reline (0.6.3)
       io-console (~> 0.5)
-    rubocop (1.84.2)
+    rubocop (1.87.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
-      parallel (~> 1.10)
+      parallel (>= 1.10)
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.9.3, < 3.0)
@@ -294,7 +294,7 @@ GEM
       lint_roller (~> 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.47.1, < 2.0)
-    rubocop-rails (2.35.3)
+    rubocop-rails (2.35.4)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
       rack (>= 1.1)
@@ -322,10 +322,10 @@ GEM
       fugit (~> 1.11)
       railties (>= 7.1)
       thor (>= 1.3.1)
-    standard (1.54.0)
+    standard (1.55.0)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
-      rubocop (~> 1.84.0)
+      rubocop (~> 1.87.0)
       standard-custom (~> 1.0.0)
       standard-performance (~> 1.8)
     standard-custom (1.0.2)
@@ -350,7 +350,7 @@ GEM
     unicode-emoji (4.2.0)
     uri (1.1.1)
     useragent (0.16.11)
-    websocket-driver (0.8.0)
+    websocket-driver (0.8.1)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -409,7 +409,7 @@ CHECKSUMS
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
   bigdecimal (4.1.2) sha256=53d217666027eab4280346fba98e7d5b66baaae1b9c3c1c0ffe89d48188a3fbd
   bootsnap (1.24.6) sha256=c60bab88c70332290f0a2636a288f675299eb4f804a02a3c085b42eca9da164a
-  brakeman (8.0.4) sha256=7bf921fa9638544835df9aa7b3e720a9a72c0267f34f92135955edd80d4dcf6f
+  brakeman (8.0.5) sha256=03735f9690d3fd4b32d66aacbf0a6d15a84266bdd06b32c05c8ecc8f6021d2be
   builder (3.3.0) sha256=497918d2f9dca528fdca4b88d84e4ef4387256d984b8154e9d5d3fe5a9c8835f
   concurrent-ruby (1.3.6) sha256=6b56837e1e7e5292f9864f34b69c5a2cbc75c0cf5338f1ce9903d10fa762d5ab
   connection_pool (3.0.2) sha256=33fff5ba71a12d2aa26cb72b1db8bba2a1a01823559fb01d29eb74c286e62e0a
@@ -436,7 +436,7 @@ CHECKSUMS
   io-console (0.8.2) sha256=d6e3ae7a7cc7574f4b8893b4fca2162e57a825b223a177b7afa236c5ef9814cc
   irb (1.18.0) sha256=de9454a0703a54704b9811a5ef31a60c86949fbf4013fcf244fabc7c775248e3
   jb (0.8.2) sha256=542e551c14f34ceba199b8379abf093863182c76a909879b874a20e4cb47bde3
-  json (2.19.8) sha256=6354310fd76ef69b87d5bd1f38b40d730613baf90b6803d2d0a48f618d32dfaa
+  json (2.19.9) sha256=9b9025b7cdddafa38d316eca0b2358488e42d417045c1b90d216a9fefe46b79a
   language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc
   lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
@@ -447,8 +447,8 @@ CHECKSUMS
   mime-types-data (3.2026.0414) sha256=461c4c655373a44bd6c5fe54bcf5b7776026ea96e808144b1ec465c4b99148cc
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
   minitest (6.0.6) sha256=153ea36d1d987a62942382b61075745042a2b3123b1cd48f4c3675af9cc7d6f1
-  msgpack (1.8.1) sha256=3fef787cd3965fd119c08a22724a56a93ca25008c3421fc15039f603a8b7c86c
-  net-imap (0.6.4) sha256=9a5598c67a3022c284d98430ef1d4948e7dbdb62596f61081ea8ca933270a02b
+  msgpack (1.8.3) sha256=8bda4a6428d3244e50d6bd55854d354edbada88a4e1f4f5731a39a0f86bee6a1
+  net-imap (0.6.4.1) sha256=29f0360d75a7efd3539f16ac1957dea5c0a51ddeceb348db4553c3120914ea0d
   net-pop (0.1.2) sha256=848b4e982013c15b2f0382792268763b748cce91c9e91e36b0f27ed26420dff3
   net-protocol (0.2.2) sha256=aa73e0cba6a125369de9837b8d8ef82a61849360eba0521900e2c3713aa162a8
   net-smtp (0.5.1) sha256=ed96a0af63c524fceb4b29b0d352195c30d82dd916a42f03c62a3a70e5b70736
@@ -461,7 +461,7 @@ CHECKSUMS
   nokogiri (1.19.3-x86_64-darwin) sha256=77f3fba57d46c53ab31e62fc6c28f705109d1bf6264356c76f132b2be5728d4d
   nokogiri (1.19.3-x86_64-linux-gnu) sha256=2f5078620fe12e83669b5b17311b32532a8153d02eee7ad06948b926d6080976
   nokogiri (1.19.3-x86_64-linux-musl) sha256=248c906d2166eca5efb56d52fdee5f9a1f51d69a72e2b64fdac647b4ce39ea3f
-  parallel (1.28.0) sha256=33e6de1484baf2524792d178b0913fc8eb94c628d6cfe45599ad4458c638c970
+  parallel (2.1.0) sha256=b35258865c2e31134c5ecb708beaaf6772adf9d5efae28e93e99260877b09356
   parser (3.3.11.1) sha256=d17ace7aabe3e72c3cc94043714be27cc6f852f104d81aa284c2281aecc65d54
   pg (1.6.3) sha256=1388d0563e13d2758c1089e35e973a3249e955c659592d10e5b77c468f628a99
   pg (1.6.3-aarch64-linux) sha256=0698ad563e02383c27510b76bf7d4cd2de19cd1d16a5013f375dd473e4be72ea
@@ -492,17 +492,17 @@ CHECKSUMS
   rdoc (7.2.0) sha256=8650f76cd4009c3b54955eb5d7e3a075c60a57276766ebf36f9085e8c9f23192
   regexp_parser (2.12.0) sha256=35a916a1d63190ab5c9009457136ae5f3c0c7512d60291d0d1378ba18ce08ebb
   reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
-  rubocop (1.84.2) sha256=5692cea54168f3dc8cb79a6fe95c5424b7ea893c707ad7a4307b0585e88dbf5f
+  rubocop (1.87.0) sha256=b9d9ddf55116a513f8ef2c7ae660662d8b49301f118d3f0df61865b33a5c188d
   rubocop-ast (1.49.1) sha256=4412f3ee70f6fe4546cc489548e0f6fcf76cafcfa80fa03af67098ffed755035
   rubocop-performance (1.26.1) sha256=cd19b936ff196df85829d264b522fd4f98b6c89ad271fa52744a8c11b8f71834
-  rubocop-rails (2.35.3) sha256=6edd45410866912b9b2e90ae3aeafd31d576df2bb2a9c9408f1667a50c32c7de
+  rubocop-rails (2.35.4) sha256=3aeaa325439c89950e8327565682ea794065d08e2ecbbfe95032bfa295a35df5
   rubocop-rails-omakase (1.1.0) sha256=2af73ac8ee5852de2919abbd2618af9c15c19b512c4cfc1f9a5d3b6ef009109d
   ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   solid_cable (4.0.0) sha256=8379680ef6bf36e195eb876a6306ea290f87d5fa10bc4a757bc2a918f83229b5
   solid_cache (1.0.10) sha256=bc05a2fb3ac78a6f43cbb5946679cf9db67dd30d22939ededc385cb93e120d41
   solid_queue (1.4.0) sha256=e6a18d196f0b27cb6e3c77c5b31258b05fb634f8ed64fb1866ed164047216c2a
-  standard (1.54.0) sha256=7a4b08f83d9893083c8f03bc486f0feeb6a84d48233b40829c03ef4767ea0100
+  standard (1.55.0) sha256=8a8f2c3e681a4db3aafde1b301561b0f3d7c5f06c160167cb744a4d7baf0426e
   standard-custom (1.0.2) sha256=424adc84179a074f1a2a309bb9cf7cd6bfdb2b6541f20c6bf9436c0ba22a652b
   standard-performance (1.9.0) sha256=49483d31be448292951d80e5e67cdcb576c2502103c7b40aec6f1b6e9c88e3f2
   stimulus-rails (1.3.4) sha256=765676ffa1f33af64ce026d26b48e8ffb2e0b94e0f50e9119e11d6107d67cb06
@@ -516,7 +516,7 @@ CHECKSUMS
   unicode-emoji (4.2.0) sha256=519e69150f75652e40bf736106cfbc8f0f73aa3fb6a65afe62fefa7f80b0f80f
   uri (1.1.1) sha256=379fa58d27ffb1387eaada68c749d1426738bd0f654d812fcc07e7568f5c57c6
   useragent (0.16.11) sha256=700e6413ad4bb954bb63547fa098dddf7b0ebe75b40cc6f93b8d54255b173844
-  websocket-driver (0.8.0) sha256=ed0dba4b943c22f17f9a734817e808bc84cdce6a7e22045f5315aa57676d4962
+  websocket-driver (0.8.1) sha256=5ab238238ce230e5d4b262d2be39624c867914eab99171dc4952b58b577c2d96
   websocket-extensions (0.1.5) sha256=1c6ba63092cda343eb53fc657110c71c754c56484aad42578495227d717a8241
   zeitwerk (2.8.2) sha256=7212a61311083c604184b1ea2574b9aa05cd14f855a0841c06985cabe9181d12
   zxcvbn-ruby (2.0.0) sha256=00fcbfd3b81d53dec3c52e763acbc3ae239ce234607be3bf95d5318759d1e72e

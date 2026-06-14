@@ -1,6 +1,6 @@
 json = {
   password: @password,
-  entropy: @entropy,
+  guesses_log10: @guesses_log10,
   score: @score
 }
 json

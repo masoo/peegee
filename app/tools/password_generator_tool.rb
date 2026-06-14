@@ -39,7 +39,7 @@ class PasswordGeneratorTool < ApplicationTool
     {
       password: password,
       length: password.length,
-      entropy: evaluator.entropy,
+      guesses_log10: evaluator.guesses_log10,
       score: evaluator.score,
       options: {
         include_uppercase: include_uppercase,

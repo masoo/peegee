@@ -18,12 +18,12 @@ class PasswordConfigurationResource < ApplicationResource
           symbols: '!"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~'
         },
         lookalike_characters: "0oO1lI|gq9",
-        entropy_levels: {
-          very_weak: "< 25",
-          weak: "25-50",
-          fair: "50-75",
-          strong: "75-100",
-          very_strong: "> 100"
+        guesses_log10_levels: {
+          very_weak: "< 3",
+          weak: "3-6",
+          fair: "6-8",
+          strong: "8-10",
+          very_strong: "> 10"
         },
         score_levels: {
           0 => "Very Weak",

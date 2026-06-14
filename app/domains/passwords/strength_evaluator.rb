@@ -3,12 +3,12 @@ require "zxcvbn"
 module Passwords
   # password strength evaluator
   class StrengthEvaluator
-    attr_reader :entropy, :score
+    attr_reader :guesses_log10, :score
 
     # @param password [String] password to evaluate
     def initialize(password)
       zxcvbn_result = Zxcvbn.test(password)
-      @entropy = zxcvbn_result.entropy
+      @guesses_log10 = zxcvbn_result.guesses_log10
       @score = zxcvbn_result.score
     end
   end
