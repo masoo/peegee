@@ -2,24 +2,21 @@
 # check=error=true
 
 # This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t railsdiff .
-# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name railsdiff railsdiff
+# docker build -t peegee .
+# docker run -d -p 8080:8080 -e HTTP_PORT=8080 -e RAILS_MASTER_KEY=<value from config/master.key> --name peegee peegee
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=your-ruby-version
+ARG RUBY_VERSION=4.0.6
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
 WORKDIR /rails
 
 # Install base packages
-# RUN apt-get update -qq && \
-#     apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
-#     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
@@ -32,11 +29,8 @@ ENV RAILS_ENV="production" \
 FROM base AS build
 
 # Install packages needed to build gems
-# RUN apt-get update -qq && \
-#     apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config && \
-#     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config libpq-dev && \
+    apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
@@ -71,8 +65,10 @@ RUN groupadd --system --gid 1000 rails && \
 USER 1000:1000
 
 # Entrypoint prepares the database.
-# ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start server via Thruster by default, this can be overwritten at runtime
-EXPOSE 80
+# Start server via Thruster by default, this can be overwritten at runtime.
+# The container runs as a non-root user and cannot bind to port 80, so
+# Thruster is expected to listen on 8080 (set HTTP_PORT=8080; see fly.toml).
+EXPOSE 8080
 CMD ["./bin/thrust", "./bin/rails", "server"]

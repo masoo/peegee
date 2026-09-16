@@ -1,0 +1,29 @@
+# fly.toml app configuration file for peegee
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+
+app = "peegee-prd"
+primary_region = "nrt"
+
+[env]
+  # The Docker image runs as a non-root user and cannot bind to port 80,
+  # so Thruster listens on 8080. Thruster sets PORT for Puma automatically.
+  HTTP_PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [[http_service.checks]]
+    method = "GET"
+    path = "/up"
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "10s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
